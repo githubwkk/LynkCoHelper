@@ -4,14 +4,13 @@
 （build_native_signature），以及 env.json 读写辅助函数
 （load_env_data / save_env_fields）。
 
-env.json 结构（四个子对象）：
+env.json 结构（三个子对象）：
     {
       "user": {"username": "", "password": "", "token": "", "refreshToken": "", "deviceId": "",
                 "tokenExpireAt": ""},
       "secrets": {"nativeAppKey": "", "nativeAppSecret": "", "nativeAppCode": "",
                   "loginAppCode": ""},
-      "notify": {"barkKey": "", "feiShuWebhook": "", "dingTalkWebhook": "", "weComWebhook": ""},
-      "ai": {"provider": "chatanywhere", "model": "gpt-4o-mini", "apiKey": ""}
+      "notify": {"barkKey": "", "feiShuWebhook": "", "dingTalkWebhook": "", "weComWebhook": ""}
     }
 
 密钥读取优先级：单独环境变量 > 整合环境变量 LYNKCO_APP_SECRETS（JSON 字符串，
@@ -40,7 +39,6 @@ def env_value(name: str, default: str = "") -> str:
 # 网络请求默认超时（秒），GitHub Actions runner 到领克服务器延迟较高，
 # 15 秒不够。可通过环境变量覆盖。
 DEFAULT_TIMEOUT = int(env_value("LYNKCO_TIMEOUT", "30"))
-AI_TIMEOUT = int(env_value("LYNKCO_AI_TIMEOUT", "60"))
 # 超时/断连后自动重试次数（每次间隔 3 秒），重试时会重新生成签名。
 DEFAULT_RETRIES = int(env_value("LYNKCO_RETRIES", "2"))
 
@@ -92,8 +90,6 @@ APP_BUILD = "40208072"
 IOS_DEVICE_NAME = "iPhone"
 IOS_DEVICE_MODEL = "iPhone 15 Pro"
 IOS_OS_VERSION = "27.0.1"
-MAX_COMMENT_CHARS = 500
-AI_PROMPT_MAX_CHARS = 50
 IOS_SIGNATURE_HEADERS = "X-Ca-Key,X-Ca-Nonce,X-Ca-Signature-Method,X-Ca-Timestamp,X-Ca-Version,token"
 
 
@@ -316,7 +312,6 @@ def load_env_data() -> dict:
         "user": data.get("user") or {},
         "secrets": data.get("secrets") or {},
         "notify": data.get("notify") or {},
-        "ai": data.get("ai") or {},
     }
 
 

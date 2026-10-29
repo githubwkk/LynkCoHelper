@@ -67,7 +67,7 @@ WSL_USER = "root"                        # WSL 用户（emulator/AVD 装在其�
 AVD = "lynkco_helper_avd_x64"            # x86_64 镜像 AVD
 DEVICE = "127.0.0.1:5555"                # Windows adb 视角下的 WSL 模拟器
 WIN_TOOLS = os.path.join(os.path.expanduser("~"), ".lynkco-helper-tools-win")
-ADB_FALLBACK = r"D:\Android-data\platform-tools\adb.exe"
+ADB_FALLBACK = r"D:\Tools\platform-tools\adb.exe"
 CORRETTO_URL = ("https://corretto.aws/downloads/latest/"
                 "amazon-corretto-8-x64-windows-jdk.zip")
 PLATFORM_TOOLS_URL = ("https://dl.google.com/android/repository/"
